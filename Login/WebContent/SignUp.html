@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Newspaper SignUp Form</title>
+</head>
+<body>
+<p>If you don't have an account please sign up below</p>
+<form action = "/Login/LoginPage" name = "SignUp" onSubmit = "return validatePassword()">
+Name:<input type="text" name = "name" required/><br>
+User Name:<input type="text" name = "uname" required/><br>
+Password:<input type="password" name = "password" required/><br>
+Confirm Password:<input type="password" name = "confpassword" required/><br>
+<p>Please provide the list of news papers that you like to register</p>
+Deccan Hearals <input name = "news" value = "Deccan Hearld" type="checkbox" checked><br>
+Kannada Prabha <input name = "news" value = "Kannada Prabha" type="checkbox"><br>
+Wall street Journul <input name = "news" value = "Wall street Journul" type="checkbox">
+<input type = "Submit" value = "Go"/>
+
+<script>
+function validatePassword(){
+	var p1 = document.forms["SignUp"]["password"];
+	var p2 = document.forms["SignUp"]["confpassword"];
+	if(p1.value != p2.value){
+		alert("Passwords dont match");
+		return false;
+	}
+	return true;
+	}	
+}
+</script>
+</form>
+</body>
+</html>
