@@ -3,16 +3,33 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Newspaper SignUp Form</title>
+<style>
+.container {
+    padding: 16px;
+}
+</style>
 </head>
 <body>
 <p>If you don't have an account please sign up below</p>
-<form action = "/Login/LoginPage" name = "SignUp" onSubmit = "return validatePassword()">
-Name:<input type="text" name = "name" required/><br>
-User Name:<input type="text" name = "uname" required/><br>
-Password:<input type="password" name = "password" required/><br>
-Confirm Password:<input type="password" name = "confpassword" required/><br>
+<form action = "/Login/RegisterPage" name = "SignUp" onSubmit = "return validatePassword()">
+<div class="container">
+    <label><b>Name</b></label>
+    <input type="text" placeholder="Enter Name" name="name" required>
+</div>
+<div class="container">
+    <label><b>User Name</b></label>
+    <input type="text" placeholder="Enter UserName" name="uname" required>
+</div>
+<div class="container">
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Password" name="password" required>
+</div>
+<div class="container">
+    <label><b>Confirm Password:</b></label>
+    <input type="password" placeholder="confpassword" name="password" required>
+</div>
 <p>Please provide the list of news papers that you like to register</p>
-Deccan Hearals <input name = "news" value = "Deccan Hearld" type="checkbox" checked><br>
+Deccan Hearld <input name = "news" value = "Deccan Hearld" type="checkbox" checked><br>
 Kannada Prabha <input name = "news" value = "Kannada Prabha" type="checkbox"><br>
 Wall street Journul <input name = "news" value = "Wall street Journul" type="checkbox">
 <input type = "Submit" value = "Go"/>
