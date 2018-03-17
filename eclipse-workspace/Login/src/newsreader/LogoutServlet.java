@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -32,12 +33,15 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String Uname = request.getParameter("uname");
-		Cookie ck = new Cookie("uname",Uname);
+		HttpSession httpSession = request.getSession(false);
+		httpSession.invalidate();
+//		Cookie ck = new Cookie("uname",Uname);
 		PrintWriter pw = response.getWriter();
-		ck.setMaxAge(0);
-		ck.getValue();
-		response.addCookie(ck);
-		System.out.println(ck.getValue());
+//		ck.setMaxAge(0);
+//		ck.getValue();
+//		response.addCookie(ck);
+//		System.out.println(ck.getValue());
+		response.sendRedirect("Index.html");
 		pw.write("<html><body><p>You have successfully Logged out</p></body></head>");
 		
 	}
