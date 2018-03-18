@@ -41,7 +41,7 @@ public class LogoutServlet extends HttpServlet {
 //		ck.getValue();
 //		response.addCookie(ck);
 //		System.out.println(ck.getValue());
-		response.sendRedirect("Index.html");
+		response.sendRedirect("index.jsp");
 		pw.write("<html><body><p>You have successfully Logged out</p></body></head>");
 		
 	}

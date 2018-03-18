@@ -4,21 +4,12 @@ package newsreader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.util.Arrays;
-//import java.util.List;
-//
-//import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,10 +20,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Servlet implementation class reader
@@ -41,25 +28,23 @@ import org.w3c.dom.NodeList;
 public class reader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public reader() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		response.setHeader("Cache-Control","no-cache"); 
+		response.setHeader("Cache-Control","no-store"); 
+		response.setDateHeader("Expires", 0); 
+		response.setHeader("Pragma","no-cache"); 
+
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = null;
 		Document doc = null;
+
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e1) {
@@ -69,71 +54,152 @@ public class reader extends HttpServlet {
 		try{
 			String userName = (String) request.getAttribute("uname");
 			System.out.println("Username:" + userName);
-			
-			
-//			String password = request.getParameter("password");
-//			if(!(userName.isEmpty())) {
-//				Cookie ck = new Cookie("uname",userName);
-//				response.addCookie(ck);
-				
-//				System.out.println(ck.getValue());
-//				Session session = HibernateUtilities.getSessionFactory().openSession();
-//				session.beginTransaction();
-//				Users user = session.get(Users.class, userName);
-//				session.getTransaction().commit();
-//				if(user.getUname() != null) {		
-//					String psswrd = user.getPassword(); 
-//					if(!(password.equals(psswrd))) {
-//						pw.write("<html><body><p>Password is incorrect please try again<a href = \"Index.html\">Login</a></body></html>");
-//					}
-//					else {
-//						String rss = user.getNewspaper_list();
-//						if(rss == null) {
-//							pw.write("<html><body><p>You haven't registered to any of the News Paper Please Register</p><a href = \"SignUp.html\">Login</a></body></html>");
-//						}
-//						else {
-//							String[] Split = rss.split(",");
-//							String l =  new String();
-//							request.setAttribute("news", Split);
-//							String s1 = "<!DOCTYPE html>\r\n" + 
-//									"<html>\r\n" + 
-//									"<head>\r\n" + 
-//									"<meta charset=\"ISO-8859-1\">\r\n" + 
-//									"<title>Subscription</title>\r\n" + 
-//									"</head>\r\n" + 
-//									"<body>\r\n" + 
-//
-//										"<form action = \"/Login/WebXml\">\r\n" +
-//
-//
-//										"<select name=\"news\">\r\n" ;
-//							for(String newsPaper : Split) {
-//								l= l + ("<option value=\""+newsPaper+"\">"+newsPaper+"</option>\r\n");
-//							}
-//							String k = ("</select>\r\n" + 
-//									"<input type = \"submit\" value = \"Go\" >\r\n" + 
-//									"</form>\r\n" + 
-//									"</body>\r\n" + 
-//									"</html>");
-//							String html = s1 + l + k;
-//							pw.write(html);  
-//						}
-//					}
-//				}
-//				else {
-//					pw.write("<html><head>Not Register</head><body><p>The User not Registered</p><p>Please register using the below link</p><a href =\"SignUp.html\">SignUp</a></p></body></html>");
-//				}
-//
-//			}
-		}catch(Exception e) {
+			Session session = HibernateUtilities.getSessionFactory().openSession();
+			session.beginTransaction();
+			Users user = session.get(Users.class, userName);
+			session.getTransaction().commit();
+			String rss = user.getNewspaper_list();
+			if(rss == null) {
+				pw.write("<html><body><p>You haven't registered to any of the News Paper Please Register</p><a href = \"SignUp.html\">Login</a></body></html>");
+			}
+			else {
+
+				pw.write("<html>");
+
+				pw.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n" + 
+						"<style>\r\n" + 
+						"body {\r\n" + 
+						"    font-family: \"Lato\", sans-serif;\r\n" + 
+						"}\r\n" + 
+						"\r\n" + 
+						".sidenav {\r\n" + 
+						"    width: 130px;\r\n" + 
+						"    position: fixed;\r\n" + 
+						"    z-index: 1;\r\n" + 
+						"    top: 20px;\r\n" + 
+						"    left: 10px;\r\n" + 
+						"    background: #eee;\r\n" + 
+						"    overflow-x: hidden;\r\n" + 
+						"    padding: 8px 0;\r\n" + 
+						"}\r\n" + 
+						"\r\n" + 
+						".sidenav a {\r\n" + 
+						"    padding: 6px 8px 6px 16px;\r\n" + 
+						"    text-decoration: none;\r\n" + 
+						"    font-size: 25px;\r\n" + 
+						"    color: #2196F3;\r\n" + 
+						"    display: block;\r\n" + 
+						"}\r\n" + 
+						"\r\n" + 
+						".sidenav a:hover {\r\n" + 
+						"    color: #064579;\r\n" + 
+						"}\r\n" + 
+						"\r\n" + 
+						".main {\r\n" + 
+						"    margin-left: 140px; /* Same width as the sidebar + left position in px */\r\n" + 
+						"    font-size: 14px; /* Increased text to enable scrolling */\r\n" + 
+						"    padding: 0px 10px;\r\n" + 
+						"}\r\n" + 
+						"\r\n" + 
+						"@media screen and (max-height: 450px) {\r\n" + 
+						"    .sidenav {padding-top: 15px;}\r\n" + 
+						"    .sidenav a {font-size: 18px;}\r\n" + 
+						"}\r\n" + 
+						"</style>\r\n" + 
+						"</head>\r\n" + 
+						"<body>\r\n" + 
+						"\r\n" + 
+						"<div class=\"sidenav\">\r\n" + 
+						"  <a href=\"/Login/LogoutServlet\">Logout</a>\r\n" + 
+						"</div><div class=\"main\">");
+
+				String[] Split = rss.split(",");
+
+				for(String newsPaper : Split) {
+
+					if(newsPaper.equals("Wall street Journul")) {
+
+						pw.write("<p style=\\\"font-family:courier;font-size:300%;text-align:center;\\\"><b>"+newsPaper+"</b></p>");
+						doc = dBuilder.parse("http://www.wsj.com/xml/rss/3_7041.xml");
+						NodeList nList = doc.getElementsByTagName("item");
+
+						for (int temp = 0; temp < 10 ; temp++) {
+							Node nNode = nList.item(temp);
+							Element eElement = (Element) nNode;
+							pw.write("<p><b>Title"+":</b>"+ eElement
+									.getElementsByTagName("description")
+							.item(0)
+							.getTextContent()+"</p>");
+							pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+									.getElementsByTagName("link")
+							.item(0)
+							.getTextContent()+" \">"+ eElement
+							.getElementsByTagName("title")
+							.item(0)
+							.getTextContent() +"</a>"+"</p>");
+							pw.write("<p>-------------------------------------------------------------------</p>");
+						}
+					}
+					else if(newsPaper.equals("Deccan Hearld")) {
+
+						pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
+						doc = dBuilder.parse("http://www.deccanherald.com/rss-internal/top-stories.rss");
+						NodeList nList = doc.getElementsByTagName("item");
+
+						for (int temp = 0; temp < 10 ; temp++) {
+							Node nNode = nList.item(temp);
+							Element eElement = (Element) nNode;
+							pw.write("<p><b>Title"+":</b>"+ eElement
+									.getElementsByTagName("description")
+							.item(0)
+							.getTextContent()+"</p>");
+							pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+									.getElementsByTagName("link")
+							.item(0)
+							.getTextContent()+" \">"+ eElement
+							.getElementsByTagName("title")
+							.item(0)
+							.getTextContent() +"</a>"+"</p>");
+							pw.write("<p>-------------------------------------------------------------------</p>");
+						}
+					}
+					else if(newsPaper.equals("Kannada Prabha")) {
+
+						pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
+						doc = dBuilder.parse("http://www.kannadaprabha.com/rss/kannada-top-news-1.xml");
+						NodeList nList = doc.getElementsByTagName("item");
+
+						for (int temp = 0; temp < 10 ; temp++) {
+							Node nNode = nList.item(temp);
+							Element eElement = (Element) nNode;
+							pw.write("<p><b>Title"+":</b>"+ eElement
+									.getElementsByTagName("description")
+							.item(0)
+							.getTextContent()+"</p>");
+							pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+									.getElementsByTagName("link")
+							.item(0)
+							.getTextContent()+" \">"+ eElement
+							.getElementsByTagName("title")
+							.item(0)
+							.getTextContent() +"</a>"+"</p>");
+							pw.write("<p>-------------------------------------------------------------------</p>");
+						}
+					}
+				}
+
+				doc.getDocumentElement().normalize();
+			}
+
+		}
+
+		catch(Exception e) {
 			System.out.println(e.getLocalizedMessage());
 		}
+
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
