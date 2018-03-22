@@ -33,14 +33,21 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String Uname = request.getParameter("uname");
+		
 		HttpSession httpSession = request.getSession(false);
 		httpSession.invalidate();
-//		Cookie ck = new Cookie("uname",Uname);
+		Cookie[] cookieLogout = request.getCookies();
+		
+		for(Cookie cookie : cookieLogout){
+    		if(cookie.getName().equals("uname")){
+    			cookie.setMaxAge(-1);
+    			response.addCookie(cookie);
+    			break;
+    		}
+    	}
+//		response.addCookie(cookieLogout);
 		PrintWriter pw = response.getWriter();
-//		ck.setMaxAge(0);
-//		ck.getValue();
-//		response.addCookie(ck);
-//		System.out.println(ck.getValue());
+
 		response.sendRedirect("index.jsp");
 		pw.write("<html><body><p>You have successfully Logged out</p></body></head>");
 		

@@ -13,7 +13,7 @@ System.out.println(userName);
 if(userName == null){
 	response.sendRedirect("login.html");
 }
-else{
+else{ 
 	request.setAttribute("uname", userName);
 	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login/reader");
 
