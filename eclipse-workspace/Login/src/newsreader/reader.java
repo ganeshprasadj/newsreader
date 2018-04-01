@@ -35,6 +35,7 @@ public class reader extends HttpServlet {
 		super();
 	}
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //For clearing the Cache
 		response.setHeader("Cache-Control","no-cache"); 
@@ -48,6 +49,7 @@ public class reader extends HttpServlet {
 		Cookie cookies[] = request.getCookies();
 		String loggedInUser = (String)httpSession.getAttribute("uname");
 		String loggedInCookie = null;
+		Subscription subscription = new Subscription();
 		
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals("uname")) loggedInCookie = cookie.getValue();
@@ -72,13 +74,14 @@ public class reader extends HttpServlet {
 				System.out.println("Username:" + userName);
 				Session session = HibernateUtilities.getSessionFactory().openSession();
 				session.beginTransaction();
-				Users user = session.get(Users.class, userName);
+		//		Users user = session.get(Users.class, userName);
+				Subscription subscriptions = session.get(Subscription.class, userName);
 				session.getTransaction().commit();
-				String rss = user.getNewspaper_list();
-				if(rss == null) {
-					pw.write("<html><body><p>You haven't registered to any of the News Paper Please Register</p><a href = \"SignUp.html\">Login</a></body></html>");
-				}
-				else {
+				String rss = subscriptions.getSubscription();
+//				if(rss == null) {
+//					pw.write("<html><body><p>You haven't registered to any of the News Paper Please Register</p><a href = \"SignUp.html\">Login</a></body></html>");
+//				}
+//				else {
 
 					pw.write("<html>");
 
@@ -207,7 +210,7 @@ public class reader extends HttpServlet {
 					doc.getDocumentElement().normalize();
 				}
 
-			}
+			
 
 			catch(Exception e) {
 				System.out.println(e.getLocalizedMessage());

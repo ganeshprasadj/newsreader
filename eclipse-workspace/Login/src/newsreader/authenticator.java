@@ -2,6 +2,7 @@ package newsreader;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 
 import org.hibernate.Session;
 
@@ -35,6 +36,7 @@ public class authenticator extends HttpServlet {
 		String password = request.getParameter("password");
 		PrintWriter pw = response.getWriter();
 		if(userName != null) {
+			
 			//Getting an Hibernate session
 			Session session = HibernateUtilities.getSessionFactory().openSession();
 			session.beginTransaction();
