@@ -4,7 +4,7 @@
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
   <servlet>
     <servlet-name>reader</servlet-name>
     <servlet-class>newsreader.reader</servlet-class>
@@ -13,7 +13,7 @@
     <servlet-name>reader</servlet-name>
     <url-pattern>/Login/reader</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>authenticator</servlet-name>
     <servlet-class>newsreader.authenticator</servlet-class>
   </servlet>
@@ -21,7 +21,7 @@
     <servlet-name>authenticator</servlet-name>
     <url-pattern>/Login/authenticator</url-pattern>
   </servlet-mapping>
-	<welcome-file-list>
+  <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

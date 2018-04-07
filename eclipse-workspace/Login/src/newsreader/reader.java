@@ -23,10 +23,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-/**
- * Servlet implementation class reader
- */
 @WebServlet("/reader")
 public class reader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -95,7 +91,7 @@ public class reader extends HttpServlet {
 							"    width: 130px;\r\n" + 
 							"    position: fixed;\r\n" + 
 							"    z-index: 1;\r\n" + 
-							"    top: 20px;\r\n" + 
+							"    top: 1px;\r\n" + 
 							"    left: 10px;\r\n" + 
 							"    background: #eee;\r\n" + 
 							"    overflow-x: hidden;\r\n" + 
@@ -114,8 +110,61 @@ public class reader extends HttpServlet {
 							"    color: #064579;\r\n" + 
 							"}\r\n" + 
 							"\r\n" + 
+							".container {\r\n" + 
+							"								  margin: 50px auto\r\n" + 
+							"								  width: 640px;\r\n" + 
+							"								  text-align: center;\r\n" + 
+							"\r\n" + 
+							"								  .dropdown { text-align: right; }\r\n" + 
+							"								}\r\n" + 
+							"\r\n" + 
+							"								.dropdown {\r\n" + 
+							"								  $color: #363d47;\r\n" + 
+							"								  position: relative;\r\n" + 
+							"								  height: 27px;\r\n" + 
+							"								  background: $color;\r\n" + 
+							"								  border: 1px solid;\r\n" + 
+							"								  border-color: darken($color, 7%) darken($color, 8%) darken($color, 9%);\r\n" + 
+							"								  border-radius: 3px;\r\n" + 
+							"								  @include inline-block;\r\n" + 
+							"								  @include linear-gradient(top, lighten($color, 9%), $color);\r\n" + 
+							"								  @include box-shadow(inset 0 1px rgba(white, .1), 0 1px 2px rgba(black, .15));\r\n" + 
+							"\r\n" + 
+							"								  a {\r\n" + 
+							"								    font-size: 12px;\r\n" + 
+							"								    text-decoration: none;\r\n" + 
+							"								    text-shadow: 0 1px black;\r\n" + 
+							"								  }\r\n" + 
+							"\r\n" + 
+							"								  > a {\r\n" + 
+							"								    float: left;\r\n" + 
+							"								    position: relative;\r\n" + 
+							"								    height: 27px;\r\n" + 
+							"								    line-height: 26px;\r\n" + 
+							"								    padding: 0 12px;\r\n" + 
+							"								    color: #ecf0f1;\r\n" + 
+							"								    border-radius: 2px 0 0 2px;\r\n" + 
+							"\r\n" + 
+							"								    &:before {\r\n" + 
+							"								      content: '';\r\n" + 
+							"								      display: inline-block;\r\n" + 
+							"								      vertical-align: -2px;\r\n" + 
+							"								      width: 10px;\r\n" + 
+							"								      height: 11px;\r\n" + 
+							"								      margin-right: 10px;\r\n" + 
+							"								      background: url('../img/settings.png') 0 0 no-repeat;\r\n" + 
+							"								    }\r\n" + 
+							"\r\n" + 
+							"								    &:hover {\r\n" + 
+							"								      background: lighten($color, 4%);\r\n" + 
+							"								      background: rgba(white, .04);\r\n" + 
+							"								    }\r\n" + 
+							"\r\n" + 
+							"								    &:active { background: darken($color, 1%); }\r\n" + 
+							"								  }\""+
+
 							".main {\r\n" + 
-							"    margin-left: 140px; /* Same width as the sidebar + left position in px */\r\n" + 
+							"    margin-left: 300px; /* Same width as the sidebar + left position in px */\r\n" + 
 							"    font-size: 14px; /* Increased text to enable scrolling */\r\n" + 
 							"    padding: 0px 10px;\r\n" + 
 							"}\r\n" + 
@@ -128,9 +177,15 @@ public class reader extends HttpServlet {
 							"</head>\r\n" + 
 							"<body>\r\n" + 
 							"\r\n" + 
-							"<div class=\"sidenav\">\r\n" + 
-							"  <a href=\"/Login/LogoutServlet\">Logout</a>\r\n" + 
-							"</div><div class=\"main\">");
+							  "\"</div><div class=\\\"main\\\">"+
+							  "         <a href=\"changepassword.jsp\">Change Username</a></li>\r\n"    + 
+							  "         <a href=\"addsubs.jsp\">Add/Remove Subscription</a></li>\r\n" + 
+							  "         <a href=\"changeCred.jsp\">Change Credentials</a></li>\r\n" + 
+							  "			<a href=\"deleteAcc.jsp\">Delete account</a></li>\r\n\" "+
+							  "			<a href=\"/Login/LogoutServlet\">Logout</a>\r\n "+
+							  "      </div>\r\n" + 
+							  "    </div>\r\n" + 
+							  "  </section>");
 
 					String[] Split = rss.split(",");
 

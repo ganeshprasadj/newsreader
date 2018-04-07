@@ -60,12 +60,8 @@ public class RegisterPage extends HttpServlet {
 			
 			subscription.setUname(userName);
 			subscription.setSubscription(str);
-		//	subscription.setUser(user1);
-//			subscription.setUser(user1);
-			
 			
 			try {	
-				
 				Session session = HibernateUtilities.getSessionFactory().openSession();
 				session.beginTransaction();
 //				session.get(Users.class, userName);
