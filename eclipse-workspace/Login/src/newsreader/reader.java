@@ -178,10 +178,10 @@ public class reader extends HttpServlet {
 							"<body>\r\n" + 
 							"\r\n" + 
 							  "\"</div><div class=\\\"main\\\">"+
-							  "         <a href=\"changepassword.jsp\">Change Username</a></li>\r\n"    + 
+							  "         <a href=\"changepassword.jsp\">Change Password</a></li>\r\n"    + 
 							  "         <a href=\"addsubs.jsp\">Add/Remove Subscription</a></li>\r\n" + 
 							  "         <a href=\"changeCred.jsp\">Change Credentials</a></li>\r\n" + 
-							  "			<a href=\"deleteAcc.jsp\">Delete account</a></li>\r\n\" "+
+							  "			<a href=\"/Login/Deleteaccount\">Delete account</a></li>\r\n\" "+
 							  "			<a href=\"/Login/LogoutServlet\">Logout</a>\r\n "+
 							  "      </div>\r\n" + 
 							  "    </div>\r\n" + 
