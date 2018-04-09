@@ -30,8 +30,11 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//For clearing the Cache
+				response.setHeader("Cache-Control","no-cache"); 
+				response.setHeader("Cache-Control","no-store"); 
+				response.setDateHeader("Expires", 0); 
+				response.setHeader("Pragma","no-cache");
 		String Uname = request.getParameter("uname");
 		
 		HttpSession httpSession = request.getSession(false);

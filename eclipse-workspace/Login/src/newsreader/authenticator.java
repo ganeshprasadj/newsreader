@@ -3,6 +3,7 @@ package newsreader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.hibernate.Session;
 
@@ -16,11 +17,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/authenticator")
-public class authenticator extends HttpServlet {
+public class authenticator extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	public authenticator() {
 		super();
+	}
+	
+	private String hashPassword(String pass) {
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		md.update(pass.getBytes());
+		byte byteData[] = md.digest();
+
+		//convert the byte to hex format method 1
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}
+		return sb.toString();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,8 +55,9 @@ public class authenticator extends HttpServlet {
 		String password = request.getParameter("password");
 		PrintWriter pw = response.getWriter();
 		if(userName != null) {
+		
+			String hashPassword = hashPassword(password);
 			
-			//Getting an Hibernate session
 			Session session = HibernateUtilities.getSessionFactory().openSession();
 			session.beginTransaction();
 			Users user = session.get(Users.class, userName);
@@ -46,9 +66,9 @@ public class authenticator extends HttpServlet {
 			//Validating if the Username and password are proper
 			if(user.getUname() != null) {
 
-				String psswrd = user.getPassword(); 
+				String storedPassword = user.getPassword(); 
 
-				if(!(password.equals(psswrd))) {
+				if(!(hashPassword.equals(storedPassword))) {
 					response.sendRedirect("login.html");
 				}
 
