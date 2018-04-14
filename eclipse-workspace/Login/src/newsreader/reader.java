@@ -261,7 +261,7 @@ public class reader extends HttpServlet {
 //								.getTextContent() +"</a>"+"</p>");
 //								pw.write("<p>-------------------------------------------------------------------</p>");
 //							}
-							showNewsElement(nList,pw);
+							
 						}
 					}
 
@@ -284,35 +284,37 @@ public class reader extends HttpServlet {
 	
 	private void showNewsElement(NodeList nList, PrintWriter pw) {
 		
-		int maxNewsItems = max(MAX_NEWS_ITEMS, nList.getLength());
-		for (int newsIndex = 0; newsIndex < maxNewsItems; newsIndex++) {
+		int maxNewsItems = min(MAX_NEWS_ITEMS, nList.getLength());
 		
-			Node nNode = nList.item(newsIndex);
-			if(nNode != null) {
-				Element eElement = (Element) nNode;
-				pw.write("<p><b>Title"+":</b>"+ eElement
-						.getElementsByTagName("description")
-				.item(0)
-				.getTextContent()+"</p>");
-				pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
-						.getElementsByTagName("link")
-				.item(0)
-				.getTextContent()+" \">"+ eElement
-				.getElementsByTagName("title")
-				.item(0)
-				.getTextContent() +"</a>"+"</p>");
-				pw.write("<p>-------------------------------------------------------------------</p>");
-				
-			}
-			else {
-				pw.write("No News available at this time");
-				break;
+		if( maxNewsItems == 0 ) {
+			pw.write("No News available at this time");
+		}
+		else {
+			for (int newsIndex = 0; newsIndex < maxNewsItems; newsIndex++) {
+
+				Node nNode = nList.item(newsIndex);
+				if(nNode != null) {
+					Element eElement = (Element) nNode;
+					pw.write("<p><b>Title"+":</b>"+ eElement
+							.getElementsByTagName("description")
+					.item(0)
+					.getTextContent()+"</p>");
+					pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+							.getElementsByTagName("link")
+					.item(0)
+					.getTextContent()+" \">"+ eElement
+					.getElementsByTagName("title")
+					.item(0)
+					.getTextContent() +"</a>"+"</p>");
+					pw.write("<p>-------------------------------------------------------------------</p>");
+
+				}
 			}
 		}
 	}
 	
-	private int max(int a, int b) {
-		return a > b ? a : b;
+	private int min(int a, int b) {
+		return a < b ? a : b;
 	}
 
 }
