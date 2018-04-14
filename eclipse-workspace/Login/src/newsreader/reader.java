@@ -23,8 +23,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+
+
 @WebServlet("/reader")
 public class reader extends HttpServlet {
+	final int MAX_NEWS_ITEMS = 10;
 	private static final long serialVersionUID = 1L;
 
 	public reader() {
@@ -195,69 +198,70 @@ public class reader extends HttpServlet {
 							pw.write("<p style=\\\"font-family:courier;font-size:300%;text-align:center;\\\"><b>"+newsPaper+"</b></p>");
 							doc = dBuilder.parse("http://www.wsj.com/xml/rss/3_7041.xml");
 							NodeList nList = doc.getElementsByTagName("item");
-
-							for (int temp = 0; temp < 10 ; temp++) {
-								Node nNode = nList.item(temp);
-								Element eElement = (Element) nNode;
-								pw.write("<p><b>Title"+":</b>"+ eElement
-										.getElementsByTagName("description")
-								.item(0)
-								.getTextContent()+"</p>");
-								pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
-										.getElementsByTagName("link")
-								.item(0)
-								.getTextContent()+" \">"+ eElement
-								.getElementsByTagName("title")
-								.item(0)
-								.getTextContent() +"</a>"+"</p>");
-								pw.write("<p>-------------------------------------------------------------------</p>");
-							}
+							showNewsElement(nList,pw);
+//							for (int temp = 0; temp < 10 ; temp++) {
+//								Node nNode = nList.item(temp);
+//								Element eElement = (Element) nNode;
+//								pw.write("<p><b>Title"+":</b>"+ eElement
+//										.getElementsByTagName("description")
+//								.item(0)
+//								.getTextContent()+"</p>");
+//								pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+//										.getElementsByTagName("link")
+//								.item(0)
+//								.getTextContent()+" \">"+ eElement
+//								.getElementsByTagName("title")
+//								.item(0)
+//								.getTextContent() +"</a>"+"</p>");
+//								pw.write("<p>-------------------------------------------------------------------</p>");
+//							}
 						}
 						else if(newsPaper.equals("Deccan Hearld")) {
 
 							pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
 							doc = dBuilder.parse("http://www.deccanherald.com/rss-internal/top-stories.rss");
 							NodeList nList = doc.getElementsByTagName("item");
-
-							for (int temp = 0; temp < 10 ; temp++) {
-								Node nNode = nList.item(temp);
-								Element eElement = (Element) nNode;
-								pw.write("<p><b>Title"+":</b>"+ eElement
-										.getElementsByTagName("description")
-								.item(0)
-								.getTextContent()+"</p>");
-								pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
-										.getElementsByTagName("link")
-								.item(0)
-								.getTextContent()+" \">"+ eElement
-								.getElementsByTagName("title")
-								.item(0)
-								.getTextContent() +"</a>"+"</p>");
-								pw.write("<p>-------------------------------------------------------------------</p>");
-							}
+							showNewsElement(nList,pw);
+//							for (int temp = 0; temp < 10 ; temp++) {
+//								Node nNode = nList.item(temp);
+//								Element eElement = (Element) nNode;
+//								pw.write("<p><b>Title"+":</b>"+ eElement
+//										.getElementsByTagName("description")
+//								.item(0)
+//								.getTextContent()+"</p>");
+//								pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+//										.getElementsByTagName("link")
+//								.item(0)
+//								.getTextContent()+" \">"+ eElement
+//								.getElementsByTagName("title")
+//								.item(0)
+//								.getTextContent() +"</a>"+"</p>");
+//								pw.write("<p>-------------------------------------------------------------------</p>");
+//							}
 						}
 						else if(newsPaper.equals("Kannada Prabha")) {
 
 							pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
 							doc = dBuilder.parse("http://www.kannadaprabha.com/rss/kannada-top-news-1.xml");
 							NodeList nList = doc.getElementsByTagName("item");
-
-							for (int temp = 0; temp < 10 ; temp++) {
-								Node nNode = nList.item(temp);
-								Element eElement = (Element) nNode;
-								pw.write("<p><b>Title"+":</b>"+ eElement
-										.getElementsByTagName("description")
-								.item(0)
-								.getTextContent()+"</p>");
-								pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
-										.getElementsByTagName("link")
-								.item(0)
-								.getTextContent()+" \">"+ eElement
-								.getElementsByTagName("title")
-								.item(0)
-								.getTextContent() +"</a>"+"</p>");
-								pw.write("<p>-------------------------------------------------------------------</p>");
-							}
+							showNewsElement(nList,pw);
+//							for (int temp = 0; temp < 10 ; temp++) {
+//								Node nNode = nList.item(temp);
+//								Element eElement = (Element) nNode;
+//								pw.write("<p><b>Title"+":</b>"+ eElement
+//										.getElementsByTagName("description")
+//								.item(0)
+//								.getTextContent()+"</p>");
+//								pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+//										.getElementsByTagName("link")
+//								.item(0)
+//								.getTextContent()+" \">"+ eElement
+//								.getElementsByTagName("title")
+//								.item(0)
+//								.getTextContent() +"</a>"+"</p>");
+//								pw.write("<p>-------------------------------------------------------------------</p>");
+//							}
+							showNewsElement(nList,pw);
 						}
 					}
 
@@ -276,6 +280,39 @@ public class reader extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	private void showNewsElement(NodeList nList, PrintWriter pw) {
+		
+		int maxNewsItems = max(MAX_NEWS_ITEMS, nList.getLength());
+		for (int newsIndex = 0; newsIndex < maxNewsItems; newsIndex++) {
+		
+			Node nNode = nList.item(newsIndex);
+			if(nNode != null) {
+				Element eElement = (Element) nNode;
+				pw.write("<p><b>Title"+":</b>"+ eElement
+						.getElementsByTagName("description")
+				.item(0)
+				.getTextContent()+"</p>");
+				pw.write("<p><b>Link</b>"+":"+"<a href=\"" +eElement
+						.getElementsByTagName("link")
+				.item(0)
+				.getTextContent()+" \">"+ eElement
+				.getElementsByTagName("title")
+				.item(0)
+				.getTextContent() +"</a>"+"</p>");
+				pw.write("<p>-------------------------------------------------------------------</p>");
+				
+			}
+			else {
+				pw.write("No News available at this time");
+				break;
+			}
+		}
+	}
+	
+	private int max(int a, int b) {
+		return a > b ? a : b;
 	}
 
 }
