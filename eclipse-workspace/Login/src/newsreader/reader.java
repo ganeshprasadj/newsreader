@@ -31,7 +31,6 @@ public class reader extends HttpServlet {
 		super();
 	}
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //For clearing the Cache
 		response.setHeader("Cache-Control","no-cache"); 

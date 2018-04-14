@@ -21,7 +21,7 @@ import org.hibernate.Session;
 @WebServlet("/RegisterPage")
 public class RegisterPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String hashPassword(String pass) {
 		MessageDigest md = null;
 		try {
@@ -29,6 +29,7 @@ public class RegisterPage extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		
 		md.update(pass.getBytes());
 		byte byteData[] = md.digest();
 
@@ -85,11 +86,9 @@ public class RegisterPage extends HttpServlet {
 				session.save(subscription);
 				session.getTransaction().commit();		
 			}catch(Exception e) {
-
 				System.out.println(e.getLocalizedMessage());
-
 			}
-			
+
 			RequestDispatcher rd = request.getRequestDispatcher("display.html");
 			rd.forward(request, response);
 
