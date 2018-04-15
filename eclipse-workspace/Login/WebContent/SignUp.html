@@ -1,63 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>GSReader - Signup</title>
+<link href="./styles.css" rel="stylesheet">
 <meta charset="ISO-8859-1">
-<title>Newspaper SignUp Form</title>
-<style>
-.container {
-    padding: 16px;
-}
-</style>
 </head>
 <body>
-<p>If you don't have an account please sign up below</p>
-<form action = "/Login/RegisterPage" name = "SignUp" onSubmit = "return validatePassword()">
-<div class="container">
-    <label><b>Name</b></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
-</div>
-<div class="container">
-    <label><b>User Name</b></label>
-    <input type="text" placeholder="Enter UserName" name="uname" required>
-</div>
-<div class="container">
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Password" name="password" required>
-</div>
-<div class="container">
-    <label><b>Confirm Password:</b></label>
-    <input type="password" placeholder="Confpassword" name="confpassword" required>
-</div>
-<div class="container">
-    <label><b>Email ID:</b></label>
-    <input type="email" placeholder="Enter Email Id" name="emailId" required>
-</div>
-<div class="container">
-    <label><b>DOB:</b></label>
-    <input type="date" placeholder="Date of birth" name="DOB" required>
-</div>
-<div class="container">
-    <label><b>Refresh Period:</b></label>
-    <input type="text" placeholder="Refresh Period" name="refreshPeriod" required>
-</div>
-<p>Please provide the list of news papers that you like to register</p>
-Deccan Hearld <input name = "news" value = "Deccan Hearld" type="checkbox" checked><br>
-Kannada Prabha <input name = "news" value = "Kannada Prabha" type="checkbox"><br>
-Wall street Journul <input name = "news" value = "Wall street Journul" type="checkbox">
-<input type = "Submit" value = "Go"/>
+	<div class='header'>
+		<div class='titleContainer'>
+			<div class='title'>GSReader</div>
+		</div>
+		<div class='menu'>
+			<ul>
+				<li class="menuitem"><a href="login.html">Log in</a></li>
+				<li class="menuitem"><a href="#">Sign up</a></li>
+				<li class="menuitem"><a href="welcome.html">About us</a></li>
+			</ul>
+		</div>
+	</div>
 
-<script>
-function validatePassword(){
-	var p1 = document.forms["SignUp"]["password"];
-	var p2 = document.forms["SignUp"]["confpassword"];
-	if(p1.value != p2.value){
-		alert("Passwords dont match");
-		return false;
-	}
-	return true;
-	}	
-}
-</script>
-</form>
+	<div class="signup_container">
+			<form action="/Login/RegisterPage" name="SignUp"
+				onSubmit="return validatePassword()">
+				<div class="first_column">
+					<div class="input_container">
+						<label><b>Name</b></label> <input type="text"
+							placeholder="Enter Name" name="name" required>
+					</div>
+					<div class="input_container">
+						<label><b>User Name</b></label> <input type="text"
+							placeholder="Enter UserName" name="uname" required>
+					</div>
+					<div class="input_container">
+						<label><b>Password</b></label> <input type="password"
+							placeholder="Password" name="password" required>
+					</div>
+					<div class="input_container">
+						<label><b>Confirm Password:</b></label> <input type="password"
+							placeholder="Confpassword" name="confpassword" required>
+					</div>
+
+					<div class="input_container">
+						<label><b>Email ID:</b></label> <input type="email"
+							placeholder="Enter Email Id" name="emailId" required>
+					</div>
+
+					<div class="input_container">
+						<label><b>DOB:</b></label> <input type="date"
+							placeholder="Date of birth" name="DOB" required>
+					</div>
+
+					<div class="input_container">
+						<label><b>Refresh Period:</b></label> <input type="text"
+							placeholder="Refresh Period" name="refreshPeriod" required>
+					</div>
+				</div>
+				<div class="second_column">
+					<p>Please provide the list of news papers that you like to
+						register</p>
+					Deccan Hearld <input name="news" value="Deccan Hearld"
+						type="checkbox" checked><br> Kannada Prabha <input
+						name="news" value="Kannada Prabha" type="checkbox"><br>
+					Wall street Journul <input name="news" value="Wall street Journul"
+						type="checkbox">
+				</div>
+
+				<div class="input_container">
+					<input class="submit" type="submit" value="Go" />
+				</div>
+				<script>
+					function validatePassword() {
+						var p1 = document.forms["SignUp"]["password"];
+						var p2 = document.forms["SignUp"]["confpassword"];
+						if (p1.value != p2.value) {
+							alert("Passwords dont match");
+							return false;
+						}
+						return true;
+					}}
+				</script>
+			</form>
+	</div>
 </body>
 </html>

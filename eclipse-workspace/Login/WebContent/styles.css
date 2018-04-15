@@ -1,0 +1,141 @@
+
+.header {
+  height : 100px;
+  width: 100%;
+  background-color: blue;
+}
+
+.title {
+  color:white;
+  font-size:36px;
+  font-weight:bold;
+  /* background-color: teal; */
+}
+
+.input_container {
+	margin:25px;
+ 
+	
+}
+.login_container {
+	flex-direction:column;
+	margin-top:100px;
+	width:400px;
+	display: flex;
+	align-self:center;
+}
+
+.signup_container {
+	/* flex-direction:row; */
+	margin-top:25px;
+	/*  width:100%;  */
+	/* display: flex; */
+	/* align-self:center; */
+}
+
+.first_column {
+	background-color:#0f0;
+	float:left;
+	 width:47.5%; 
+	/* display:inline-block; */
+	/* flex:1; */
+}
+.second_column {
+	background-color:#f00;
+	/* display:inline-block; */
+	/* width:50%; */
+	/* flex:2; */
+}
+
+form {
+	border: 3px solid #f1f1f1;
+}
+
+
+ input[type=text], input[type=password], input[type=email], input[type=date]{
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0; 
+	display: inline-block; 
+	border: 1px solid #ccc;
+	box-sizing: border-box; 
+}
+
+.submit {
+	height:40px;
+	background-color: #00f;
+	color:white;
+	width: 100%;
+	font-size:12pt;
+}
+
+.date_container{
+	background-color: #0f0;
+	display:inline;
+	margin:25px;
+}
+
+.login_form {
+	flex-direction:column;
+	display:flex;
+	align-self:center;
+	border:none;
+}
+
+ .titleContainer {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  pointer-events: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items:flex-end;
+  height: inherit;
+  /* border: 1px; */
+  /* background-color: steelblue; */
+}
+
+.menuitem {
+  /* height:30px; */
+  display:inline-flex;
+  flex-direction: column;
+  font-size: 18px;
+  text-align: center;
+  width:100px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* border-bottom: 1px solid #aaaaaa; */
+  /* background: red; */
+}
+
+.pagecontent {
+  margin-top: 25px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.greetings {
+  font-size: 36px;
+}
+
+.intro {
+  margin-top: 20px;
+  font-size: 18px;
+}
