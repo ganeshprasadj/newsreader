@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28 Mar, 2018 7:45:44 AM by Hibernate Tools 3.5.0.Final -->
+
+<hibernate-mapping>
+
+    <class name="newsreader.NewpaperLookup" table="newspaper_lookup">
+    
+        <id name="ID" type="java.lang.int">
+            <column name="ID" />
+        </id>
+        
+        <property name="newspaper_name" type="java.lang.String">
+            <column name="NEWSPAPER_NAME" />
+        </property>
+        
+        <property name="url" type="java.lang.String">
+            <column name="URL" />
+        </property>
+        
+        <property name="category" type="java.lang.String">
+            <column name="CATEGORY" />
+        </property>
+        
+        <property name="custom" type="java.lang.boolean">
+            <column name="CUSTOM" />
+        </property>
+        
+    </class>
+    
+</hibernate-mapping>

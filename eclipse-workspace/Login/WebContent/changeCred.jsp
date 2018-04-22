@@ -14,19 +14,23 @@
 <%!String newPassword;%>
 <%
 	HttpSession httpSession = request.getSession();
-	ArrayList<String> subscriptions = new ArrayList<String>();
-	String[] Split = null;
+	HashSet<String> subscriptions = new HashSet<String>();
+	HashSet<String> subscribedNewsPapers = new HashSet<String>();
 	subscriptions.add("Deccan Hearld");
 	subscriptions.add("Kannada Prabha");
-	subscriptions.add("Wall Street Journol");
+	subscriptions.add("Wall Street Journal");
 	String userName = (String) httpSession.getAttribute("uname");
 	Session sessionJSP = newsreader.HibernateUtilities.getSessionFactory().openSession();
 	sessionJSP.beginTransaction();
 	newsreader.Users user = sessionJSP.get(newsreader.Users.class, userName);
 	String news = user.getSubscription().getSubscription();
-	//assert news!= null : "News is empty";
-	if (news != null && !(news.isEmpty()))
-		Split = news.split(",");
+
+	String[] subscribedNews = news.split(",");
+	if (subscribedNews != null) {
+		for (String addSubscribedNews : subscribedNews) {
+			subscribedNewsPapers.add(addSubscribedNews);
+		}
+	}
 %>
 
 <body>
@@ -34,22 +38,19 @@
 		Name: <input type="text" name="name" /> Email ID: <input type="email"
 			name="emailId" />
 		<%
-			int i = 0;
-		if (news != null && !(news.isEmpty())){
+			//			int i = 0;
+			//		if (news != null && !(news.isEmpty())){
+			//		for (Iterator<String> iter = subscriptions.iterator(); iter.hasNext();) {
+			//		String newspaper = iter.next();
+			//	if (subscribedNewsPapers.contains(newspaper)) {
+			//iter.remove();
+			//	i++;
+			//} else {
+			subscriptions.removeAll(subscribedNewsPapers);
 			for (Iterator<String> iter = subscriptions.iterator(); iter.hasNext();) {
 				String newspaper = iter.next();
-				if (newspaper.equals(Split[i])) {
-					//iter.remove();
-				} else {
 		%></br> <input type="checkbox" name="newspaper" value="<%=newspaper%>"><%=newspaper%>
 		<%
-			}
-			}}else
-			{
-				for (Iterator<String> iter = subscriptions.iterator(); iter.hasNext();){
-					String newspaper = iter.next();%>
-					</br> <input type="checkbox" name="newspaper" value= "<%=newspaper%>"><%=newspaper%>
-				<%}	
 			}
 		%>
 

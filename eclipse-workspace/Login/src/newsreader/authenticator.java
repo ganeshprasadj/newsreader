@@ -53,7 +53,7 @@ public class authenticator extends HttpServlet{
 		//For getting the request parameters
 		String userName = request.getParameter("uname");
 		String password = request.getParameter("password");
-		PrintWriter pw = response.getWriter();
+		//PrintWriter pw = response.getWriter();
 		if(userName != null) {
 		
 			String hashPassword = hashPassword(password);
@@ -67,12 +67,21 @@ public class authenticator extends HttpServlet{
 			if(user.getUname() != null) {
 
 				String storedPassword = user.getPassword(); 
+				
+				if(user.getUname().equals("admin")) {
+					if((hashPassword.equals(storedPassword))) {
+						response.sendRedirect("admin_portal.html");
+						return;
+					}
+					else {
+						response.sendRedirect("login.html");
+					}
+				}
 
 				if(!(hashPassword.equals(storedPassword))) {
 					response.sendRedirect("login.html");
 				}
 
-				else {
 					HttpSession httpSession = request.getSession();
 					httpSession.setAttribute("uname", userName);
 					httpSession.setMaxInactiveInterval(2*60);
@@ -84,7 +93,7 @@ public class authenticator extends HttpServlet{
 					request.setAttribute("uname", userName);
 					dispatcher.forward(request, response);
 				}
-			}
+			
 		}else {
 			response.sendRedirect("login.html");
 		}

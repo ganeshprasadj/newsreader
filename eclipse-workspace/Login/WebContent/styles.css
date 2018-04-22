@@ -9,14 +9,12 @@
   color:white;
   font-size:36px;
   font-weight:bold;
-  /* background-color: teal; */
 }
 
 .input_container {
-	margin:25px;
- 
-	
+	margin:25px;	
 }
+
 .login_container {
 	flex-direction:column;
 	margin-top:100px;
@@ -26,22 +24,19 @@
 }
 
 .signup_container {
-	/* flex-direction:row; */
 	margin-top:25px;
-	/*  width:100%;  */
-	/* display: flex; */
-	/* align-self:center; */
 }
 
 .first_column {
-	background-color:#0f0;
+	background-color:#fff;
 	float:left;
-	 width:47.5%; 
+	 width:100%; 
 	/* display:inline-block; */
 	/* flex:1; */
 }
+
 .second_column {
-	background-color:#f00;
+	background-color:#fff;
 	/* display:inline-block; */
 	/* width:50%; */
 	/* flex:2; */
@@ -51,7 +46,6 @@ form {
 	border: 3px solid #f1f1f1;
 }
 
-
  input[type=text], input[type=password], input[type=email], input[type=date]{
 	width: 100%;
 	padding: 12px 20px;
@@ -60,6 +54,10 @@ form {
 	border: 1px solid #ccc;
 	box-sizing: border-box; 
 }
+.input-container{
+	padding: 12px 20px;
+}
+
 
 .submit {
 	height:40px;

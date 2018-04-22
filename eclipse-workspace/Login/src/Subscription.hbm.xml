@@ -10,5 +10,6 @@
         <property name="subscription" type="java.lang.String">
             <column name="SUBSCRIPTION" />
         </property>
+        
     </class>
 </hibernate-mapping>

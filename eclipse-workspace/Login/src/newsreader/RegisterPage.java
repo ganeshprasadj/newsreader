@@ -29,7 +29,7 @@ public class RegisterPage extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		
+
 		md.update(pass.getBytes());
 		byte byteData[] = md.digest();
 
@@ -55,11 +55,12 @@ public class RegisterPage extends HttpServlet {
 
 		String papersRegistered[] = request.getParameterValues("news");
 		String str = new String();
-		if(papersRegistered != null) {
-			for(String newsValues: papersRegistered ) {
-				str = str + newsValues + "," ;
-			}
-		}
+		
+//		if(papersRegistered != null) {
+//			for(String newsValues: papersRegistered ) {
+//				str = str + newsValues + "," ;
+//			}
+//		}
 
 		try{
 
@@ -76,12 +77,20 @@ public class RegisterPage extends HttpServlet {
 			user1.setSubscription(subscription);
 
 			subscription.setUname(userName);
-			subscription.setSubscription(str);
+			
 
 			try {	
 				Session session = HibernateUtilities.getSessionFactory().openSession();
 				session.beginTransaction();
 
+				if(papersRegistered != null) {
+					for(String newsValues: papersRegistered ) {
+						NewspaperLookup newspaperLookupObj = session.get(NewspaperLookup.class, newsValues);
+						int id = newspaperLookupObj.getId();
+						str = str + id + "," ;
+					}
+				}
+				subscription.setSubscription(str);
 				session.save(user1);
 				session.save(subscription);
 				session.getTransaction().commit();		

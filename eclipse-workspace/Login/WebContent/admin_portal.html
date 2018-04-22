@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>GSReader - Admin Portal</title>
+<link href="./styles.css" rel="stylesheet">
+</head>
+<body>
+<div class='header'>
+		<div class='titleContainer'>
+			<div class='title'>GSReader</div>
+		</div>
+		<div class='menu'>
+			<h1>Welcome Admin</h1>
+		</div>
+	</div>
+	
+	<div class="login_form">
+		<div class="login_container">
+			<form action="/Login/AdminPortal" method="get">
+				<div class="input_container">
+					<label><b>Newspaper Name</b></label> 
+					<input type="text"
+						placeholder="Enter Newspaper" name="newspaperName" required>
+				</div>
+				<div class="input_container">
+					<label><b>Category</b></label> 
+					<input type="text"
+						placeholder="Enter Category" name="category" required>
+				</div>
+				
+				<div class="input_container">
+					<label><b>URL</b></label> 
+					<input type="text"
+						placeholder="Enter URL" name="url" required>
+				</div>
+				
+				<div class="input_container">
+					<label><b>Custom</b></label> 
+					<input type="checkbox" name = "custom"/>
+				</div>
+				
+				<div class="input_container">
+					<input class="submit" type="submit">
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

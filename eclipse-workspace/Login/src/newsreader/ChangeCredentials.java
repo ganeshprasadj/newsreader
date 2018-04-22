@@ -28,7 +28,6 @@ public class ChangeCredentials extends HttpServlet {
 
 		Subscription subscriptionAdd = new Subscription();
 
-
 		//For clearing the Cache
 		response.setHeader("Cache-Control","no-cache"); 
 		response.setHeader("Cache-Control","no-store"); 
@@ -40,24 +39,18 @@ public class ChangeCredentials extends HttpServlet {
 		Cookie cookies[] = request.getCookies();
 		String loggedInUser = (String)httpSession.getAttribute("uname");
 		String name = request.getParameter("name");
-		String str = null;
+		String str = new String("");
 		//String newsValues = null;
 
 		String emailId = request.getParameter("emailId");
 		String subscription[] = request.getParameterValues("newspaper");
 
-
 		if(subscription != null) {
 			for(String newsValues: subscription ) {
-				if(str == null)
-					str =  newsValues + ',';
-				else {
-					str = str + newsValues + ',' ;
-				}	
+					str = str + newsValues + ",";
 			}
 		}
-
-	
+		
 		Session sessionJSP = HibernateUtilities.getSessionFactory().openSession();
 		Users user = sessionJSP.load(Users.class, loggedInUser);
 		Subscription subscriptionObj = sessionJSP.load(Subscription.class, loggedInUser);
@@ -69,12 +62,12 @@ public class ChangeCredentials extends HttpServlet {
 			user.setName(name);
 		if(emailId != null && !emailId.isEmpty())
 			user.setEmailId(emailId);
-		
+
 		String registeredPapers = subscriptionObj.getSubscription();
-		
+
 		if(registeredPapers != null && !registeredPapers.isEmpty())
 			str = str + registeredPapers;
-		
+
 		if(str != null && !str.isEmpty()) {
 			subscriptionObj.setSubscription(str);
 			user.setSubscription(subscriptionObj);

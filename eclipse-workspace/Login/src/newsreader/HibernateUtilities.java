@@ -13,7 +13,7 @@ public class HibernateUtilities {
 	private HibernateUtilities() {}
 	
 	static {
-		configuration = new Configuration().configure().addAnnotatedClass(Users.class).addAnnotatedClass(Subscription.class);
+		configuration = new Configuration().configure().addAnnotatedClass(Users.class).addAnnotatedClass(Subscription.class).addAnnotatedClass(NewspaperLookup.class);
 		
 		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();	
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
