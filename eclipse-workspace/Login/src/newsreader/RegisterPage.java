@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+//import org.hibernate.mapping.List;
+import org.hibernate.query.Query;
+import java.util.List;
 
 @WebServlet("/RegisterPage")
 public class RegisterPage extends HttpServlet {
@@ -55,12 +58,7 @@ public class RegisterPage extends HttpServlet {
 
 		String papersRegistered[] = request.getParameterValues("news");
 		String str = new String();
-		
-//		if(papersRegistered != null) {
-//			for(String newsValues: papersRegistered ) {
-//				str = str + newsValues + "," ;
-//			}
-//		}
+
 
 		try{
 
@@ -78,22 +76,28 @@ public class RegisterPage extends HttpServlet {
 
 			subscription.setUname(userName);
 			
-
 			try {	
+				
 				Session session = HibernateUtilities.getSessionFactory().openSession();
 				session.beginTransaction();
 
 				if(papersRegistered != null) {
 					for(String newsValues: papersRegistered ) {
-						NewspaperLookup newspaperLookupObj = session.get(NewspaperLookup.class, newsValues);
-						int id = newspaperLookupObj.getId();
-						str = str + id + "," ;
+						//NewspaperLookup newspaperLookupObj = session.get(NewspaperLookup.class, newsValues);
+						String hql = "select id FROM NewspaperLookup n WHERE n.newspaper_name = :newsValues";
+						Query query = session.createQuery(hql);
+						query.setParameter("newsValues", newsValues);
+						Integer list =  (Integer)query.uniqueResult();
+						if(list != null)
+							str = str + list + ',' ;
 					}
 				}
+				
 				subscription.setSubscription(str);
 				session.save(user1);
 				session.save(subscription);
-				session.getTransaction().commit();		
+				session.getTransaction().commit();	
+				
 			}catch(Exception e) {
 				System.out.println(e.getLocalizedMessage());
 			}

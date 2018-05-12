@@ -11,8 +11,8 @@
         <id name="ID" type="java.lang.int">
             <column name="ID" />
         </id>
-        
-        <property name="newspaper_name" type="java.lang.String">
+    
+    	<property name="newspaper_name" type="java.lang.String">
             <column name="NEWSPAPER_NAME" />
         </property>
         

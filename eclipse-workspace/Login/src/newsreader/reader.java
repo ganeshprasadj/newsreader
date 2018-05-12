@@ -16,6 +16,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.ws.Response;
 
 import org.hibernate.Session;
+import org.hibernate.mapping.List;
+import org.hibernate.query.Query;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -65,7 +67,12 @@ public class reader extends HttpServlet {
 
 				Subscription subscriptions = session.get(Subscription.class, loggedInUser);
 				session.getTransaction().commit();
-				String rss = subscriptions.getSubscription();
+				String id = subscriptions.getSubscription();
+				String[] Split = id.split(",");
+			
+//				for(String newsPaperId : Split ) {
+//					NewspaperLookup newsLookUp = session.get(NewspaperLookup.class, newsPaperId);
+//				}
 
 				pw.write("<html>");
 
@@ -169,39 +176,46 @@ public class reader extends HttpServlet {
 							"         <a href=\"changepassword.jsp\">Change Password</a></li>\r\n"    + 
 							"         <a href=\"addsubs.jsp\">Add/Remove Subscription</a></li>\r\n" + 
 							"         <a href=\"changeCred.jsp\">Change Credentials</a></li>\r\n" + 
-							"			<a href=\"/Login/Deleteaccount\">Delete account</a></li>\r\n\" "+
-							"			<a href=\"/Login/LogoutServlet\">Logout</a>\r\n "+
+							"		  <a href=\"/Login/Deleteaccount\">Delete account</a></li>\r\n\" "+
+							"		  <a href=\"/Login/LogoutServlet\">Logout</a>\r\n "+
 							"      </div>\r\n" + 
 							"    </div>\r\n" + 
 						"  </section>");
-
-				String[] Split = rss.split(",");
-
-				for(String newsPaper : Split) {
-
-					if(newsPaper.equals("Wall Street Journal")) {
-
-						pw.write("<p style=\\\"font-family:courier;font-size:300%;text-align:center;\\\"><b>"+newsPaper+"</b></p>");
-						doc = dBuilder.parse("http://www.wsj.com/xml/rss/3_7041.xml");
-						NodeList nList = doc.getElementsByTagName("item");
-						showNewsElement(nList,pw);
-					}
-					else if(newsPaper.equals("Deccan Hearld")) {
-
-						pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
-						doc = dBuilder.parse("http://www.deccanherald.com/rss-internal/top-stories.rss");
-						NodeList nList = doc.getElementsByTagName("item");
-						showNewsElement(nList,pw);
-					}
-					else if(newsPaper.equals("Kannada Prabha")) {
-
-						pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
-						doc = dBuilder.parse("http://www.kannadaprabha.com/rss/kannada-top-news-1.xml");
-						NodeList nList = doc.getElementsByTagName("item");
-						showNewsElement(nList,pw);
-
-					}
+				
+				for(String newsPaperId : Split) {
+					int newsPaperValue = Integer.parseInt(newsPaperId);
+					NewspaperLookup newsLookUp = session.get(NewspaperLookup.class, newsPaperValue);
+					doc = dBuilder.parse(newsLookUp.getUrl());
+					NodeList nList = doc.getElementsByTagName("item");
+					showNewsElement(nList,pw);
 				}
+
+//				for(String newsPaper : Split) {
+//
+//					if(newsPaper.equals("Wall Street Journal")) {
+//
+//						pw.write("<p style=\\\"font-family:courier;font-size:300%;text-align:center;\\\"><b>"+newsPaper+"</b></p>");
+//						
+//						doc = dBuilder.parse("http://www.wsj.com/xml/rss/3_7041.xml");
+//						NodeList nList = doc.getElementsByTagName("item");
+//						showNewsElement(nList,pw);
+//					}
+//					else if(newsPaper.equals("Deccan Hearld")) {
+//
+//						pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
+//						doc = dBuilder.parse("http://www.deccanherald.com/rss-internal/top-stories.rss");
+//						NodeList nList = doc.getElementsByTagName("item");
+//						showNewsElement(nList,pw);
+//					}
+//					else if(newsPaper.equals("Kannada Prabha")) {
+//
+//						pw.write("<p style=\"font-family:courier;font-size:300%;text-align:center;\"><b>"+newsPaper+"</b></p>");
+//						doc = dBuilder.parse("http://www.kannadaprabha.com/rss/kannada-top-news-1.xml");
+//						NodeList nList = doc.getElementsByTagName("item");
+//						showNewsElement(nList,pw);
+//
+//					}
+//				}
 
 				doc.getDocumentElement().normalize();
 			}
